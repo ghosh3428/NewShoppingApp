@@ -28,24 +28,24 @@ public class UserTest
 		userDAO = (UserDAO)context.getBean("userDAO");
 	}
 	
-	//@Test
+	@Test
 	public void insertUserTest()
 	{
 		u = new User();
-		u.setContactNumber("1234567890");
-		u.setEmail("niitjadavpur@gmail.com");
+		u.setContactNumber("1237867890");
+		u.setEmail("r_m@gmail.com");
 		u.setEnabled(true);
-		u.setFirstName("Niit");
-		u.setLastName("Jadavpur");
-		u.setPassword("admin@12345");
-		u.setRole("ADMIN");
+		u.setFirstName("Rahul");
+		u.setLastName("Mondal");
+		u.setPassword("supplier@12345");
+		u.setRole("SUPPLIER");
 		
 		assertEquals("Error adding User",true,userDAO.insert(u));
 		
 	}
 	
 	
-	@Test
+	//@Test
 	public void getUserByEmailTest()
 	{
 		u = userDAO.getUserByEmail("niitjadavpur@gmail.com");
