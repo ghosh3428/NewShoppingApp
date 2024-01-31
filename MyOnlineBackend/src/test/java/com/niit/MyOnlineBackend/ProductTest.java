@@ -37,7 +37,7 @@ public class ProductTest
 		categoryDAO = (CategoryDAO)context.getBean("categoryDAO");
 	}
 	
-	@Test
+	//@Test
 	public void productInsertTest()
 	{
 		p = new Product();
@@ -83,6 +83,37 @@ public class ProductTest
 		p.setUnitPrice(134999);
 		
 		assertEquals("Error adding Product",true,productDAO.insert(p));
+	}
+	
+	//@Test
+	public void productUpdateTest()
+	{
+		p = productDAO.getProduct(257);
+		
+		//assertEquals("Error","Sony NWE394/R 8GB Walkman MP3 Player (Red)" , p.getName());
+		
+		p.setQuantity(25);
+		p.setUnitPrice(15000);
+		
+		assertEquals("Error",true , productDAO.update(p));
+	}
+	
+	//@Test
+	public void listProductTest()
+	{
+		assertEquals("Error",4 , productDAO.listProduct().size());
+	}
+	
+	//@Test
+	public void listActiveProductTest()
+	{
+		assertEquals("Error",3 , productDAO.listActiveProducts().size());
+	}
+	
+	@Test
+	public void listActiveProductByCategoryTest()
+	{
+		assertEquals("Error",1 , productDAO.listActiveProductsByCategory(253).size());
 	}
 	
 

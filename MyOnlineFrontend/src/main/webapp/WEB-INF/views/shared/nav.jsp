@@ -9,9 +9,9 @@
 		<ul class="nav navbar-nav ">
 			<li class="nav-item active"><a class="nav-link" href="${contextRoot}/home">Home
 			</a></li>
-			<li class="nav-item active"><a class="nav-link" href="${contextRoot}/product/show/all/active/product">Product
+			<li class="nav-item active"><a class="nav-link" href="${contextRoot}/product/show/all/active/products">Product
 			</a></li>
-			<li class="nav-item active"><a class="nav-link" href="#">Manage
+			<li class="nav-item active"><a class="nav-link" href="${contextRoot}/manage/show">Manage
 					Product </a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

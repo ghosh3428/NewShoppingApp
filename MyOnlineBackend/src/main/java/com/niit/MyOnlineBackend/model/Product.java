@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="New_Shopping_Product")
@@ -20,27 +25,36 @@ private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	
 	private String code;
 	
+	@NotBlank(message="Product Name cannot be empty")
 	private String name;
 	
+	@NotBlank(message="Brand Name cannot be empty")
 	private String brand;
 	
+	@NotBlank(message="Description cannot be empty")
 	private String description;
 	
+	@Min(value = 1 , message = "Price cannot be less than 1")
 	@Column(name = "unit_price")
 	private double unitPrice;
 	
+	@Min(value = 1 , message = "Quantity cannot be less than 1")
 	private int quantity;
 	
 	@Column(name = "is_active")
 	private boolean active;
 	
+	@JsonIgnore
 	@Column(name = "category_id")
 	private int categoryId;
 	
+	@JsonIgnore
 	@Column(name = "supplier_id")
 	private int supplierId;
+	
 	
 	public Product() 
 	{	

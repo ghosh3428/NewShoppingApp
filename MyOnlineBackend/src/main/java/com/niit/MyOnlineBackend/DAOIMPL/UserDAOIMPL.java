@@ -1,5 +1,7 @@
 package com.niit.MyOnlineBackend.DAOIMPL;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,26 @@ public class UserDAOIMPL implements UserDAO
 			query.setParameter("email", email);
 							
 			return (User) query.getSingleResult();
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<User> getSuppliers() {
+		try
+		{
+			String selectActiveCategory = "FROM User WHERE role = :role";
+			
+			Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategory);
+					
+			query.setParameter("role", "SUPPLIER");
+							
+			return query.getResultList();
 			
 		}
 		catch(Exception e)

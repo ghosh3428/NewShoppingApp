@@ -6,8 +6,10 @@
 
 <spring:url var="css" value="/rs/css" />
 <spring:url var="js" value="/rs/js" />
+<spring:url var="images" value="/rs/images" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
 
 
 <html lang="en">
@@ -24,8 +26,15 @@
 <!-- Bootstrap Core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
+<!-- Datatable CSS -->
+<link href="${css}/jquery.dataTables.css" rel="stylesheet">
+
 <!-- Custom CSS -->
 <link href="${css}/shop-homepage.css" rel="stylesheet">
+
+<script>
+	window.contextRoot = '${contextRoot}';
+</script>
 
 </head>
 
@@ -41,8 +50,15 @@
 	<c:if test="${userclickhome == true}">
 		<%@ include file="home.jsp"%>
 	</c:if>
-	<c:if test="${userclickallproduct == true}">
+	<c:if test="${userclickallproducts == true || userclickcategoryproducts == true }">
 		<%@ include file="productlist.jsp"%>
+	</c:if>
+	
+	<c:if test="${userclicksingleproduct == true}">
+		<%@ include file="singleproduct.jsp"%>
+	</c:if>
+	<c:if test="${userclickmanageproduct == true}">
+		<%@ include file="manageproduct.jsp"%>
 	</c:if>
 	</div>
 	<!-- /.container -->
@@ -59,7 +75,11 @@
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="${js}/bootstrap.min.js"></script>
-
+	
+	<script src="${js}/dataTables.bootstrap.js"></script>
+	<script src="${js}/jquery.dataTables.js"></script>
+	
+<script src="${js}/customscript.js"></script>
 </body>
 
 </html>
