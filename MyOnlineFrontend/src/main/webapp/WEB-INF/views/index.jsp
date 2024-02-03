@@ -78,6 +78,7 @@
 	
 	<script src="${js}/dataTables.bootstrap.js"></script>
 	<script src="${js}/jquery.dataTables.js"></script>
+	<script src="${js}/bootbox.min.js"></script>
 	
 <script src="${js}/customscript.js"></script>
 </body>

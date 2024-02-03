@@ -161,7 +161,7 @@ $(function()
 									var str = '';
 									str += '<a href="'
 											+ window.contextRoot
-											+ '/manage/'
+											+ '/manage/edit/'
 											+ data
 											+ '/product" class="btn btn-warning"><span class="glyphicon glyphicon-pencil">EDIT</span></a> &#160;';
 
@@ -169,7 +169,59 @@ $(function()
 								}
 					}
 						
-				]
+				],
+				initComplete : function() {
+						var api = this.api();
+
+						api
+								.$('.switch input[type = "checkbox"]')
+								.on(
+										'change',
+										function() {
+
+											var checkbox = $(this);
+											var checked = checkbox
+													.prop('checked');
+											var msg = (checked) ? 'You want to activate the product?'
+													: 'You want to deactivate the product?';
+											var value = checkbox.prop('value');
+											bootbox
+													.confirm({
+														size : 'medium',
+														title : 'Product Activation/Deactivation',
+														message : msg,
+														callback : function(
+																confirmed) {
+															if (confirmed) {
+																var activeurl = window.contextRoot
+																		+ '/manage/product/'
+																		+ checkbox
+																				.prop('value')
+																		+ '/activation';
+																$.post(
+																				activeurl,
+																				function(data) {
+																					bootbox.alert({
+																								size : 'medium',
+																								title : 'Information',
+																								message : data,
+
+																							});
+																				})
+
+															} else {
+																checkbox
+																		.prop(
+																				'checked',
+																				!checked);
+															}
+														},
+													});
+										});
+					}
+
+			
+				
 		});	
 		
 		

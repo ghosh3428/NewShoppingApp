@@ -19,7 +19,7 @@
 			<h1 class="display-5">MANAGE PRODUCT FORM</h1>
 		</div>
 		<div class="card-body">
-			<sf:form action="${contextRoot}/manage/add/product" method="post"
+			<sf:form action="${contextRoot}/manage/product" method="post"
 				modelAttribute="product">
 				<div class="form-group row mt-1">
 					<label for="name" class="col-md-4 fs-4 fw-bold">Product
@@ -87,12 +87,16 @@
 					</div>
 					<div class="text-end mt-1">
 						<a class="btn btn-warning btn-sm" data-toggle="modal"
-							data-target="#myCategoryModal">Add Category</a>
+							data-target="#myCategoryModal">Manage Category</a>
 					</div>
 				</div>
 				<div class="mt-1 text-center">
+				<sf:hidden path="id" />
+				<sf:hidden path="code" />
+				<sf:hidden path="active" />
+							
 					<input type="submit" class="btn btn-success btn-lg"
-						value="Add Product" />
+						value="Manage Product" />
 				</div>
 			</sf:form>
 		</div>

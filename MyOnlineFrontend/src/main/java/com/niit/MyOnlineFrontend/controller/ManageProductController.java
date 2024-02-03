@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,6 +45,9 @@ public class ManageProductController {
 			case "product":
 				mv.addObject("message", "Product Added Successfully");
 				break;
+			case "productupdate":
+				mv.addObject("message", "Product Updated Successfully");
+				break;
 			case "category":
 				mv.addObject("message", "category Added Successfully");
 				break;
@@ -73,7 +77,7 @@ public class ManageProductController {
 		return userDAO.getSuppliers();
 	}
 
-	@RequestMapping(value = "/add/product")
+	@RequestMapping(value = "/product")
 	public String addproduct(@Valid @ModelAttribute("product") Product p, BindingResult results, Model model) {
 
 		if (results.hasErrors()) {
@@ -81,9 +85,19 @@ public class ManageProductController {
 			return "index";
 
 		} else {
-			productDAO.insert(p);
+			
+			if(p.getId() == 0)
+			{
+				productDAO.insert(p);
+				return "redirect:/manage/show?operation=product";
+			}
+			else
+			{
+				productDAO.update(p);
+				return "redirect:/manage/show?operation=productupdate";
+			}
 
-			return "redirect:/manage/show?operation=product";
+			
 		}
 	}
 	
@@ -95,7 +109,31 @@ public class ManageProductController {
 			categoryDAO.insert(c);
 
 			return "redirect:/manage/show?operation=category";
-		}
+	}
 	
+
+	@RequestMapping(value = "/edit/{id}/product")
+	public ModelAndView editProduct(@PathVariable("id") int id)
+	{
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("userclickmanageproduct", true);
+		mv.addObject("product", productDAO.getProduct(id));
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/product/{id}/activation")
+	public String activateDeactivateProduct(@PathVariable("id") int id)
+	{
+		
+		
+		Product p = productDAO.getProduct(id);
+		
+		p.setActive(!p.isActive());
+		
+		productDAO.update(p);
+		
+		return (p.isActive() ? "Successfully Activated the product with id : " +p.getId() : "Successfully Deactivated the product with id : " +p.getId());
+	}
 
 }
