@@ -30,7 +30,7 @@
 					</div>
 
 				</div>
-				<div class="form-group row  mt-1"">
+				<div class="form-group row  mt-1" >
 					<label for="brand" class="col-md-4 fs-4 fw-bold">Brand Name</label>
 					<div class="col-md-8">
 						<sf:input type="text" path="brand" id="brand" class="form-control" />
@@ -38,7 +38,7 @@
 					</div>
 
 				</div>
-				<div class="form-group row  mt-1"">
+				<div class="form-group row  mt-1">
 					<label for="unitPrice" class="col-md-4 fs-4 fw-bold">Price</label>
 					<div class="col-md-8">
 						<sf:input type="number" path="unitPrice" id="unitPrice"
@@ -47,7 +47,7 @@
 					</div>
 
 				</div>
-				<div class="form-group row  mt-1"">
+				<div class="form-group row  mt-1">
 					<label for="quantity" class="col-md-4 fs-4 fw-bold">Quantity</label>
 					<div class="col-md-8">
 						<sf:input type="number" path="quantity" id="quantity"
@@ -56,7 +56,7 @@
 					</div>
 
 				</div>
-				<div class="form-group row  mt-1"">
+				<div class="form-group row  mt-1">
 					<label for="description" class="col-md-4 fs-4 fw-bold">Description</label>
 					<div class="col-md-8">
 						<sf:textarea path="description" id="description"
@@ -65,7 +65,7 @@
 					</div>
 
 				</div>
-				<div class="form-group row  mt-1"">
+				<div class="form-group row  mt-1">
 					<label for="supplierId" class="col-md-4 fs-4 fw-bold">Supplier
 						ID</label>
 					<div class="col-md-8">
