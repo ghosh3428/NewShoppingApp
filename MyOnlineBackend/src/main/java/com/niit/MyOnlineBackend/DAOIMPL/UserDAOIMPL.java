@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.MyOnlineBackend.DAO.UserDAO;
+import com.niit.MyOnlineBackend.model.Address;
 import com.niit.MyOnlineBackend.model.User;
 
 @Repository("userDAO")
@@ -24,6 +25,21 @@ public class UserDAOIMPL implements UserDAO
 		try
 		{
 			sessionFactory.getCurrentSession().persist(user);
+			return true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean insertAddress(Address address)
+	{
+		try
+		{
+			sessionFactory.getCurrentSession().persist(address);
 			return true;
 		}
 		catch(Exception e)

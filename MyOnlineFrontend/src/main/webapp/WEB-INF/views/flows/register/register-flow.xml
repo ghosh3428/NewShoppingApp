@@ -3,18 +3,84 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd">
-                          
-                          
-                          
-     <!-- Start State -->
-	<view-state id="personal" view="flows/register/register-personal">
 
-		<transition on="billing" to="address" ></transition>
+
+	<var name="user" class="com.niit.MyOnlineBackend.model.User" />
+	<var name="billing" class="com.niit.MyOnlineBackend.model.Address" />
+
+
+	<on-start>
+		<evaluate expression="registerHandler.init()"
+			result="flowScope.registerModel">
+		</evaluate>
+	</on-start>
+
+
+	<!-- Start State -->
+	<view-state id="personal"
+		view="flows/register/register-personal" model="user">
+
+		<transition on="billing" to="validate" />
+
+		<on-exit>
+			<evaluate
+				expression="registerHandler.addUser(user , flowScope.registerModel)">
+			</evaluate>
+		</on-exit>
+
 	</view-state>
-                          
-    <view-state id="address" view="flows/register/register-address">
 
-	</view-state>                   
-                          
-                          
+	<action-state id="validate">
+
+		<evaluate
+			expression="registerHandler.validate(user,messageContext)"></evaluate>
+
+		<transition on="error" to="personal" />
+		<transition on="billing" to="address" />
+
+	</action-state>
+
+	<view-state id="address" model="billing"
+		view="flows/register/register-address">
+
+		<transition on="confirm" to="confirm" />
+
+		<on-exit>
+			<evaluate
+				expression="registerHandler.addBilling(billing , flowScope.registerModel)">
+			</evaluate>
+		</on-exit>
+
+	</view-state>
+
+	<view-state id="confirm"
+		view="flows/register/register-confirm" model="flowScope.registerModel">
+
+		<transition on="billing" to="address" />
+		<transition on="personal" to="personal" />
+		<transition on="success" to="saveall" />
+
+
+	</view-state>
+
+	<action-state id="saveall">
+
+		<evaluate
+			expression="registerHandler.saveAll(flowScope.registerModel)"></evaluate>
+
+		<transition on="success" to="success" />
+
+
+	</action-state>
+
+
+	<end-state id="success"
+		view="flows/register/register-success"></end-state>
+
+	<end-state id="home"
+		view="externalRedirect:contextRelative:/" />
+
+	<global-transitions>
+		<transition on="home" to="home" validate="false" />
+	</global-transitions>
 </flow>
