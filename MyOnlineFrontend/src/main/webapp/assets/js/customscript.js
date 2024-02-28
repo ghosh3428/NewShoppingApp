@@ -33,11 +33,6 @@ $(function()
 				
 					},
 					{
-						data:'code',
-						bSortable: false,
-				
-					}	,
-					{
 						data:'name'
 					}	,
 					{

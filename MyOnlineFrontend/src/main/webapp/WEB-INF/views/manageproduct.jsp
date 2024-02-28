@@ -20,7 +20,7 @@
 		</div>
 		<div class="card-body">
 			<sf:form action="${contextRoot}/manage/product" method="post"
-				modelAttribute="product">
+				modelAttribute="product" enctype="multipart/form-data">
 				<div class="form-group row mt-1">
 					<label for="name" class="col-md-4 fs-4 fw-bold">Product
 						Name</label>
@@ -62,6 +62,15 @@
 						<sf:textarea path="description" id="description"
 							class="form-control" rows="5" />
 						<sf:errors path="description" cssClass="help-block" element="em" />
+					</div>
+
+				</div>
+				<div class="form-group row  mt-1">
+					<label for="file" class="col-md-4 fs-4 fw-bold">Image</label>
+					<div class="col-md-8">
+						<sf:input type="file" path="file" id="file"
+							class="form-control" />
+						<sf:errors path="file" cssClass="help-block" element="em" />
 					</div>
 
 				</div>

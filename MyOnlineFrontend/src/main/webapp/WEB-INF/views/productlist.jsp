@@ -35,7 +35,6 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>Product Code</th>
 						<th>Product Name</th>
 						<th>Brand Name</th>
 						<th>Quantity</th>
@@ -47,7 +46,6 @@
 				<tfoot>
 					<tr>
 						<th></th>
-						<th>Product Code</th>
 						<th>Product Name</th>
 						<th>Brand Name</th>
 						<th>Quantity</th>

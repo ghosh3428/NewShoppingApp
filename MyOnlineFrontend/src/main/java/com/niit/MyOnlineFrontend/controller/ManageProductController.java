@@ -2,6 +2,7 @@ package com.niit.MyOnlineFrontend.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import com.niit.MyOnlineBackend.DAO.UserDAO;
 import com.niit.MyOnlineBackend.model.Category;
 import com.niit.MyOnlineBackend.model.Product;
 import com.niit.MyOnlineBackend.model.User;
+import com.niit.MyOnlineFrontend.util.ImageUploader;
+import com.niit.MyOnlineFrontend.util.ProductValidator;
 
 @Controller
 @RequestMapping(value = "/manage")
@@ -61,12 +64,12 @@ public class ManageProductController {
 	public Product getProduct() {
 		return new Product();
 	}
-	
+
 	@ModelAttribute(name = "category")
 	public Category getcategory() {
 		return new Category();
 	}
-	
+
 	@ModelAttribute(name = "categoryList")
 	public List<Category> getCategoryList() {
 		return categoryDAO.categoryList();
@@ -78,62 +81,71 @@ public class ManageProductController {
 	}
 
 	@RequestMapping(value = "/product")
-	public String addproduct(@Valid @ModelAttribute("product") Product p, BindingResult results, Model model) {
+	public String addproduct(@Valid @ModelAttribute("product") Product p, BindingResult results, Model model,
+			HttpServletRequest request) 
+	{
 
-		if (results.hasErrors()) {
+		new ProductValidator().validate(p,results);
+		
+		String message = "";
+		
+		if (results.hasErrors()) 
+		{
 			model.addAttribute("userclickmanageproduct", true);
 			return "index";
 
-		} else {
-			
-			if(p.getId() == 0)
-			{
-				productDAO.insert(p);
-				return "redirect:/manage/show?operation=product";
-			}
-			else
-			{
-				productDAO.update(p);
-				return "redirect:/manage/show?operation=productupdate";
-			}
+		}
 
+		if (p.getId() == 0) 
+		{
+			productDAO.insert(p);
+			message="product";
+		} 
+		else
+		{
+			productDAO.update(p);
+			message = "productupdate";
 			
 		}
+
+		if (!p.getFile().getOriginalFilename().equals("")) 
+		{
+			ImageUploader.uploadFile(request, p.getFile(), p.getCode());
+		}
+		
+		return "redirect:/manage/show?operation="+message;
+
 	}
-	
+
 	@RequestMapping(value = "/add/category")
-	public String addproduct(@ModelAttribute("category") Category c) 
-	{
+	public String addproduct(@ModelAttribute("category") Category c) {
 
-		    c.setActive(true);
-			categoryDAO.insert(c);
+		c.setActive(true);
+		categoryDAO.insert(c);
 
-			return "redirect:/manage/show?operation=category";
+		return "redirect:/manage/show?operation=category";
 	}
-	
 
 	@RequestMapping(value = "/edit/{id}/product")
-	public ModelAndView editProduct(@PathVariable("id") int id)
-	{
+	public ModelAndView editProduct(@PathVariable("id") int id) {
 		ModelAndView mv = new ModelAndView("index");
 		mv.addObject("userclickmanageproduct", true);
 		mv.addObject("product", productDAO.getProduct(id));
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/product/{id}/activation")
-	public String activateDeactivateProduct(@PathVariable("id") int id)
-	{
-		
-		
+	public String activateDeactivateProduct(@PathVariable("id") int id) {
+
 		Product p = productDAO.getProduct(id);
-		
+
 		p.setActive(!p.isActive());
-		
+
 		productDAO.update(p);
-		
-		return (p.isActive() ? "Successfully Activated the product with id : " +p.getId() : "Successfully Deactivated the product with id : " +p.getId());
+
+		return (p.isActive() ? "Successfully Activated the product with id : " + p.getId()
+				: "Successfully Deactivated the product with id : " + p.getId());
 	}
 
 }

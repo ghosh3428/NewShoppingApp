@@ -23,5 +23,14 @@ public class FrontController
 		mv.addObject("userclickhome" , true);
 		return mv;
 	}
+	
+	@RequestMapping(value= "/login")
+	public ModelAndView mylogin()
+	{
+		ModelAndView mv = new ModelAndView("login");
+		mv.addObject("title","My Online Frontend - LOGIN");
+		return mv;
+	}
+	
 
 }
