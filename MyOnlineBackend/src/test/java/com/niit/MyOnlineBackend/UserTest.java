@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.niit.MyOnlineBackend.DAO.CategoryDAO;
 import com.niit.MyOnlineBackend.DAO.UserDAO;
+import com.niit.MyOnlineBackend.model.Cart;
 import com.niit.MyOnlineBackend.model.Category;
 import com.niit.MyOnlineBackend.model.User;
 
@@ -28,22 +29,23 @@ public class UserTest
 		userDAO = (UserDAO)context.getBean("userDAO");
 	}
 	
-	@Test
+	/*@Test
 	public void insertUserTest()
 	{
 		u = new User();
 		u.setContactNumber("1237867890");
-		u.setEmail("r_m@gmail.com");
+		u.setEmail("jdv_kolkata@gmail.com");
 		u.setEnabled(true);
-		u.setFirstName("Rahul");
-		u.setLastName("Mondal");
-		u.setPassword("supplier@12345");
-		u.setRole("SUPPLIER");
+		u.setFirstName("Jadavpur");
+		u.setLastName("kolkata");
+		u.setPassword("admin@12345");
+		u.setRole("ADMIN");
 		
 		assertEquals("Error adding User",true,userDAO.insert(u));
 		
 	}
 	
+	*/
 	
 	//@Test
 	public void getUserByEmailTest()
@@ -51,6 +53,28 @@ public class UserTest
 		u = userDAO.getUserByEmail("niitjadavpur@gmail.com");
 		
 		assertEquals("Error fetching user","Niit",u.getFirstName());
+		
+	}
+	
+	@Test
+	public void insertUserTest()
+	{
+		u = new User();
+		u.setContactNumber("1237867890");
+		u.setEmail("am@gmail.com");
+		u.setEnabled(true);
+		u.setFirstName("Amit");
+		u.setLastName("Kumar");
+		u.setPassword("user@12345");
+		u.setRole("USER");
+		
+		Cart c = new Cart();
+		
+		c.setUser(u);
+		
+		u.setCart(c);
+		
+		assertEquals("Error adding User",true,userDAO.insert(u));
 		
 	}
 }
