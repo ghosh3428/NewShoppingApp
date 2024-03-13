@@ -63,8 +63,8 @@
 			</c:choose>
 
 			<hr />
-
-			<c:choose>
+			<security:authorize access="isAnonymous() or hasAuthority('USER')">
+				<c:choose>
 
 					<c:when test="${product.quantity < 1}">
 
@@ -76,8 +76,7 @@
 					</c:when>
 					<c:otherwise>
 
-						<a href="#"
-							class="btn btn-success"> <span
+						<a href="#" class="btn btn-success"> <span
 							class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
 						</a>
 
@@ -87,6 +86,13 @@
 					</c:otherwise>
 
 				</c:choose>
+			</security:authorize>
+			<security:authorize access="hasAuthority('ADMIN')">
+				<a href="${contextRoot}/manage/edit/${product.id}/product"
+					class="btn btn-success"> <span
+					class="glyphicon glyphicon-pencil"></span> Edit
+				</a>
+			</security:authorize>
 			<a href="${contextRoot}/product/show/all/active/products"
 				class="btn btn-primary">Back</a>
 

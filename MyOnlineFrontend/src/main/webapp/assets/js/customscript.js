@@ -65,7 +65,16 @@ $(function()
 											+ data
 											+ '/product">View</a>'
 						
-						
+								if(window.userRole == 'ADMIN')
+								{
+									str += '<a href="'
+																+ window.contextRoot
+																+ '/manage/edit/'
+																+ data
+																+ '/product" class="btn btn-warning">Edit</a>';
+								}
+								else
+								{
 								if (row.quantity < 1) 
 								{
 														str += '<a href="javascript:void(0)" class="btn btn-warning disabled"><strike>Cart</strike></a>';
@@ -78,6 +87,8 @@ $(function()
 																+ '/cart/add/'
 																+ data
 																+ '/product" class="btn btn-warning">Cart</a>';
+													}
+													
 													}
 													
 							 return str;
@@ -111,8 +122,16 @@ $(function()
 					},
 		columns : [
 					{
-						data:'id',
+						data:'code',
+						mRender :function(data, type, row)
+							{
+								return '<img src="' + window.contextRoot
+											+ '/rs/images/' + data
+											+ '.jpg" class="dataTableImg"/>';
+											
+							}
 						
+				
 					},
 					{
 						data:'name'
